@@ -57,7 +57,7 @@ public class ItemModelImpl extends Observable {
 				this.ploItems = new ArrayList<ItemModelImpl>();
 			}
 			this.ploItems.add(oNewItem);
-			bAdded = true; 
+			bAdded = true;
 		}
 		return bAdded;
 	}
