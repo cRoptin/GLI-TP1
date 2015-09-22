@@ -30,7 +30,7 @@ public class ItemModelImpl extends Observable {
 	 * List of items containing by main item
 	 */
 	private List<ItemModelImpl> ploItems;
-
+	
 	/**
 	 * Add an new item
 	 * @param psTitle the title : String
@@ -62,8 +62,14 @@ public class ItemModelImpl extends Observable {
 		return bAdded;
 	}
 	
-	public void removeItem() {
-		
+	public void removeItem(int piIndex) {
+		if (this.ploItems != null && this.ploItems.size() > 0) {
+			for (int iIdx = 0; iIdx < ploItems.size(); iIdx++) {
+				if (iIdx == piIndex) {
+					this.ploItems.remove(iIdx);
+				}
+			}
+		}
 	}
 	
 	/**

@@ -11,8 +11,8 @@ public class ItemImpl extends ItemModelImpl {
 	}
 	
 	@Override
-	public void removeItem() {
-		super.removeItem();
+	public void removeItem(int piIndex) {
+		super.removeItem(piIndex);
 		// notify observer
 		notifyObservers();
 	}
