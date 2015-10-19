@@ -1,15 +1,12 @@
 package fr.istic.gli.main;
 
+import fr.istic.gli.view.Fenetre;
+
 public class Main {
 	public static void main(String[] args) {
-		
-	}
-
-	/* (non-Java-doc)
-	 * @see java.lang.Object#Object()
-	 */
-	public Main() {
-		super();
+		Fenetre fenetre = new Fenetre();
+		//Controller controller = new Controller(fenetre);
+		fenetre.setVisible(true);
 	}
 
 }

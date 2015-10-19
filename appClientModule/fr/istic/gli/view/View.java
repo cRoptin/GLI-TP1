@@ -1,100 +1,107 @@
 package fr.istic.gli.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Rectangle2D;
+import java.util.List;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+import fr.istic.gli.model.Camembert;
 import fr.istic.gli.model.Item;
 
-
-public class monComposant extends JComponent implements MouseListener
-{
-
-	Graphics2D g2d;	
-	Item model;
-	//IController controller;
+/**
+ * The Class View.
+ */
+public class View extends JComponent implements Observer {
 	
-	String mTexte;
+	/** The angle. */
+	private float angle = 0;
 	
-	public monComposant(Item im/*, IController ic*/) {
-		mTexte = new String("Hello");
-		model = im;
-		//controller = ic;
-		addMouseListener(this);
+	/** The model. */
+	Camembert camembert;
+	
+	/** The list arcs. */
+	private List<Arc2D> listArcs;
+
+	/**
+	 * Instantiates a new view.
+	 */
+	public View() {
+		listArcs = new ArrayList<Arc2D>();
 	}
-	
+
+	/**
+	 * Gets the model.
+	 *
+	 * @return the model
+	 */
+	public Camembert getCamembert() {
+		return camembert;
+	}
+
+	/**
+	 * Sets the model.
+	 *
+	 * @param model the new model
+	 */
+	public void setCamembert(Camembert camembert) {
+		this.camembert = camembert;
+	}
+
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		Dimension d = getSize();
+		Graphics2D g2 = (Graphics2D) g;
 
-		g2d = (Graphics2D) g;
+		Camembert camembert = this.getCamembert();
+		List<Item> elements = camembert.getLoItems();
+		
+		// Calcul la taille des arcs et les ajoute à la view
+		for (int i = 0; i < elements.size(); i++) {
+			float pourcentage = (float) 1.0;//item.getPourcentage(i) * 3.6f;
+			Arc2D.Double arc = new Arc2D.Double(20, 20, 300, 300, angle,
+					pourcentage, Arc2D.PIE);
 
+			g2.setColor(new Color(new Random().nextInt()));
+			g2.fill(arc);
 
-		g2d.setColor(Color.RED);
-		Rectangle2D rect2D = new Rectangle(200, 200, 50, 50);
-		g2d.fill(rect2D);
-		g2d.draw(rect2D);
-		
-
-		g2d.setFont(new Font("Arial", Font.BOLD, 14));
-		g2d.setColor(Color.WHITE);
-		
-		// TODO: utilisation des données du IModel pour l'affichage
-		g2d.drawString( mTexte , 20, 34);
-		
-		
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-		// TODO: vérifier si un quartier de camembert a été selectionné 
-		// et renvoyer vers le controlleur 
-		mTexte = "Mouse at "+arg0.getX()+"x"+arg0.getY();
-		repaint();
+			angle += pourcentage;
+			listArcs.add(arc);
+		}
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Gets the arc point clicked.
+	 *
+	 * @param p the p
+	 * @return the arc point clicked
+	 */
+	public int getArcPointClicked(Point2D p) {
+		for (int i = 0; i < listArcs.size(); i++) {
+			if (listArcs.get(i).contains(p.getX(), p.getY())) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	/*@Override
+	public void update(Observable arg0, Object arg1) {
+		//repaint();
+	}*/
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
 }
-
