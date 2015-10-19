@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class ItemModelImpl extends Observable {
+public class ItemModel extends Observable {
 	
 	/**
 	 * Default value for items title
@@ -29,7 +29,7 @@ public class ItemModelImpl extends Observable {
 	/**
 	 * List of items containing by main item
 	 */
-	private List<ItemModelImpl> ploItems;
+	private List<ItemModel> ploItems;
 	
 	/**
 	 * Add an new item
@@ -40,7 +40,7 @@ public class ItemModelImpl extends Observable {
 	public boolean addItem(String psTitle, String psDescription, int piValue) {
 		boolean bAdded = false;
 		if (piValue >= 0) {
-			ItemModelImpl oNewItem = new ItemModelImpl();
+			ItemModel oNewItem = new ItemModel();
 			String sNewTitle = psTitle;
 			if ("".equals(sNewTitle)) {
 				sNewTitle = DEFAULT_TITLE;
@@ -54,10 +54,11 @@ public class ItemModelImpl extends Observable {
 			oNewItem.setMsDescription(sNewDescr);
 			oNewItem.setMiValue(piValue);
 			if (this.ploItems == null) {
-				this.ploItems = new ArrayList<ItemModelImpl>();
+				this.ploItems = new ArrayList<ItemModel>();
 			}
 			this.ploItems.add(oNewItem);
 			bAdded = true;
+			this.miValue += piValue;
 		}
 		return bAdded;
 	}
@@ -67,6 +68,7 @@ public class ItemModelImpl extends Observable {
 			for (int iIdx = 0; iIdx < ploItems.size(); iIdx++) {
 				if (iIdx == piIndex) {
 					this.ploItems.remove(iIdx);
+					this.miValue -= ploItems.get(iIdx).getMiValue();
 				}
 			}
 		}
@@ -118,6 +120,13 @@ public class ItemModelImpl extends Observable {
 	 */
 	public void setMiValue(int miValue) {
 		this.miValue = miValue;
+	}
+
+	/**
+	 * @return the ploItems
+	 */
+	public List<ItemModel> getPloItems() {
+		return ploItems;
 	}
 	
 }

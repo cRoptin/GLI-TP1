@@ -18,19 +18,19 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import fr.istic.gli.model.ItemImpl;
+import fr.istic.gli.model.Item;
 
 
 public class monComposant extends JComponent implements MouseListener
 {
 
 	Graphics2D g2d;	
-	ItemImpl model;
+	Item model;
 	//IController controller;
 	
 	String mTexte;
 	
-	public monComposant(ItemImpl im/*, IController ic*/) {
+	public monComposant(Item im/*, IController ic*/) {
 		mTexte = new String("Hello");
 		model = im;
 		//controller = ic;
