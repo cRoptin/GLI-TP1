@@ -24,8 +24,10 @@ public class View extends JComponent implements Observer {
 	/** The angle. */
 	private float angle = 0;
 	
-	/** The model. */
-	Camembert camembert;
+	/**
+	 * The model
+	 */
+	private Camembert camembert;
 	
 	/** The list arcs. */
 	private List<Arc2D> listArcs;
