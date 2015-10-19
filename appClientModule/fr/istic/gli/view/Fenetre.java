@@ -6,11 +6,13 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import fr.istic.gli.controller.Controller;
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.model.Item;
 
@@ -21,6 +23,11 @@ public class Fenetre extends JFrame {
 		
 	/** The title. */
 	private JLabel title = new JLabel();
+	
+	/**
+	 * The add button
+	 */
+	private JButton btnAdd = new JButton("Ajouter");
 	
 	/** The view. */
 	private View view;
@@ -41,10 +48,17 @@ public class Fenetre extends JFrame {
 		this.camembert.addItem("livre", "", 40);
 		this.camembert.addItem("tasse", "", 10);
 		this.camembert.addItem("crayon", "", 50);
+		this.camembert.addItem("gomme", "", 40);
+		this.camembert.addItem("colle", "", 10);
+		this.camembert.addItem("camembert", "", 50);
 		
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
+		//btnAdd.addMouseListener(new Controller());
+		this.getContentPane().add(btnAdd, BorderLayout.SOUTH);
 
+		this.addMouseListener(new Controller(this.camembert));
+		
 		view = new View();
 		view.setCamembert(camembert);
 

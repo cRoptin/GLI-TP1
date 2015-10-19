@@ -63,20 +63,31 @@ public class View extends JComponent implements Observer {
 		Graphics2D g2 = (Graphics2D) g;
 
 		Camembert camembert = this.getCamembert();
-		List<Item> elements = camembert.getLoItems();
+		List<Item> elements = camembert.getMloItems();
 		
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
-			float pourcentage = (float) 1.0;//item.getPourcentage(i) * 3.6f;
-			Arc2D.Double arc = new Arc2D.Double(20, 20, 300, 300, angle,
+			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
+			Arc2D.Double arc = new Arc2D.Double(50, 50, 400, 400, angle,
 					pourcentage, Arc2D.PIE);
-
 			g2.setColor(new Color(new Random().nextInt()));
 			g2.fill(arc);
 
 			angle += pourcentage;
 			listArcs.add(arc);
 		}
+		
+		Arc2D.Double blanckArc = new Arc2D.Double(110, 110, 280, 280, 0, 360, Arc2D.PIE);
+		g2.setColor(Color.WHITE);
+		g2.fill(blanckArc);
+		
+		Arc2D.Double centralArc = new Arc2D.Double(175, 175, 150, 150, 0, 360, Arc2D.PIE);
+		g2.setColor(Color.BLACK);
+		g2.fill(centralArc);
+		
+		listArcs.add(blanckArc);
+		
+		listArcs.add(centralArc);
 	}
 
 	/**

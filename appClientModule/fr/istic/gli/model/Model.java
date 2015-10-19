@@ -113,7 +113,11 @@ public class Model extends Observable {
 		if (loItems != null && loItems.size() >= piIndex && loItems.get(piIndex) != null) {
 			iPartValue = loItems.get(piIndex).getMiValue();
 		}
-		fRes = (this.miValue * 100) / iPartValue;
+		fRes = (iPartValue * 100) / this.miValue;
 		return fRes;
+	}
+	
+	public List<Item> getMloItems() {
+		return this.loItems;
 	}
 }
