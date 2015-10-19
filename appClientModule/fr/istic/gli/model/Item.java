@@ -1,21 +1,58 @@
 package fr.istic.gli.model;
 
-public class Item extends ItemModel {
+public class Item {
 
-	@Override
-	public boolean addItem(String psTitle, String psDescr, int piValue) {
-		boolean bAdded = super.addItem(psTitle, psDescr, piValue);
-		// notify observer
-		setChanged();
-		notifyObservers();
-		return bAdded;
-	}
+	/**
+	 * The item name
+	 */
+	private String msName = "";
+	/**
+	 * The item description
+	 */
+	private String msDescription = "";
+	/**
+	 * The item value
+	 */
+	private int miValue = 0;
+	/**
+	 * True if selected
+	 */
+	private boolean mbHighLights = false;
 	
-	@Override
-	public void removeItem(int piIndex) {
-		super.removeItem(piIndex);
-		// notify observer
-		setChanged();
-		notifyObservers();
+	/**
+	 * @return the msName
+	 */
+	public String getMsName() {
+		return msName;
+	}
+	/**
+	 * @param msName the msName to set
+	 */
+	public void setMsName(String msName) {
+		this.msName = msName;
+	}
+	/**
+	 * @return the msDescription
+	 */
+	public String getMsDescription() {
+		return msDescription;
+	}
+	/**
+	 * @param msDescription the msDescription to set
+	 */
+	public void setMsDescription(String msDescription) {
+		this.msDescription = msDescription;
+	}
+	/**
+	 * @return the miValue
+	 */
+	public int getMiValue() {
+		return miValue;
+	}
+	/**
+	 * @param miValue the miValue to set
+	 */
+	public void setMiValue(int miValue) {
+		this.miValue = miValue;
 	}
 }

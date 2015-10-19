@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class ItemModel extends Observable {
+public class Model extends Observable {
 	
 	/**
 	 * Default value for items title
@@ -19,17 +19,13 @@ public class ItemModel extends Observable {
 	 */
 	private String msTitle;
 	/**
-	 * The item's description
-	 */
-	private String msDescription;
-	/**
 	 * The item's value
 	 */
 	private int miValue;
 	/**
-	 * List of items containing by main item
+	 * The list of items
 	 */
-	private List<ItemModel> ploItems;
+	private List<Item> loItems = null;
 	
 	/**
 	 * Add an new item
@@ -40,12 +36,12 @@ public class ItemModel extends Observable {
 	public boolean addItem(String psTitle, String psDescription, int piValue) {
 		boolean bAdded = false;
 		if (piValue >= 0) {
-			ItemModel oNewItem = new ItemModel();
+			Item oNewItem = new Item();
 			String sNewTitle = psTitle;
 			if ("".equals(sNewTitle)) {
 				sNewTitle = DEFAULT_TITLE;
 			}
-			oNewItem.setMsTitle(sNewTitle);
+			oNewItem.setMsName(sNewTitle);
 			
 			String sNewDescr = psDescription;
 			if ("".equals(sNewDescr)) {
@@ -53,22 +49,22 @@ public class ItemModel extends Observable {
 			}
 			oNewItem.setMsDescription(sNewDescr);
 			oNewItem.setMiValue(piValue);
-			if (this.ploItems == null) {
-				this.ploItems = new ArrayList<ItemModel>();
-			}
-			this.ploItems.add(oNewItem);
 			bAdded = true;
 			this.miValue += piValue;
+			if (this.loItems == null) {
+				this.loItems = new ArrayList<Item>();
+			}
+			this.loItems.add(oNewItem);
 		}
 		return bAdded;
 	}
 	
 	public void removeItem(int piIndex) {
-		if (this.ploItems != null && this.ploItems.size() > 0) {
-			for (int iIdx = 0; iIdx < ploItems.size(); iIdx++) {
+		if (this.loItems != null && this.loItems.size() > 0) {
+			for (int iIdx = 0; iIdx < loItems.size(); iIdx++) {
 				if (iIdx == piIndex) {
-					this.ploItems.remove(iIdx);
-					this.miValue -= ploItems.get(iIdx).getMiValue();
+					this.loItems.remove(iIdx);
+					this.miValue -= loItems.get(iIdx).getMiValue();
 				}
 			}
 		}
@@ -91,22 +87,6 @@ public class ItemModel extends Observable {
 	}
 
 	/**
-	 * Get the item description 
-	 * @return the msDescription
-	 */
-	public String getMsDescription() {
-		return msDescription;
-	}
-
-	/**
-	 * Set the item description
-	 * @param msDescription the msDescription to set
-	 */
-	public void setMsDescription(String msDescription) {
-		this.msDescription = msDescription;
-	}
-
-	/**
 	 * Get the item value
 	 * @return the miValue
 	 */
@@ -121,12 +101,19 @@ public class ItemModel extends Observable {
 	public void setMiValue(int miValue) {
 		this.miValue = miValue;
 	}
-
-	/**
-	 * @return the ploItems
-	 */
-	public List<ItemModel> getPloItems() {
-		return ploItems;
-	}
 	
+	/**
+	 * Calcul of part pourcentage
+	 * @param piIndex : Index of the element
+	 * @return the pourcentage
+	 */
+	public float getPourcentage(int piIndex) {
+		float fRes = 0;
+		int iPartValue = 0;
+		if (loItems != null && loItems.size() >= piIndex && loItems.get(piIndex) != null) {
+			iPartValue = loItems.get(piIndex).getMiValue();
+		}
+		fRes = (this.miValue * 100) / iPartValue;
+		return fRes;
+	}
 }
