@@ -6,12 +6,16 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.model.Item;
@@ -41,7 +45,7 @@ public class View extends JComponent implements Observer {
 	/**
 	 * 
 	 */
-	private final int iExtSize = 50;
+	private final int iExtSize = 20;
 
 	/**
 	 * Instantiates a new view.
@@ -76,6 +80,8 @@ public class View extends JComponent implements Observer {
 		Camembert camembert = this.getCamembert();
 		List<Item> elements = camembert.getMloItems();
 		
+		this.removeAll();
+		
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
 			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
@@ -86,6 +92,35 @@ public class View extends JComponent implements Observer {
 			Arc2D.Double arc = new Arc2D.Double(50 - ((iSize - iStdSize) / 2), 50 - ((iSize - iStdSize) / 2), iSize, iSize, angle, pourcentage, Arc2D.PIE);
 			g2.setColor(new Color(new Random().nextInt()));
 			g2.fill(arc);
+			
+			if (elements.get(i).getMbHighLights()) {
+				JTextArea oSlcText = new JTextArea();
+				String sArcTxt = elements.get(i).getMsName() + "\r\n" + String.valueOf(elements.get(i).getMiValue());
+				oSlcText.setText(sArcTxt);
+				oSlcText.setForeground(Color.BLACK);
+				oSlcText.setEditable(false);
+				oSlcText.setBackground(g2.getColor());
+				oSlcText.setBorder(null);
+				
+				double dXPoint = arc.getBounds2D().getX();
+				double dYPoint = arc.getBounds2D().getY();
+				
+				System.out.println("X : " + dXPoint + " Y : " + dYPoint);
+				
+				if (dXPoint < 50 && dYPoint < 50) {
+					oSlcText.setBounds(50, 50, 50, 50);
+				}
+				if (dXPoint > 50 && dYPoint < 50) {
+					oSlcText.setBounds(250, 50, 50, 50);
+				}
+				if (dXPoint < 50 && dYPoint > 50) {
+					oSlcText.setBounds(50, 250, 50, 50);
+				}
+				if (dXPoint > 50 && dYPoint > 50) {
+					oSlcText.setBounds(250, 250, 50, 50);
+				}
+				this.add(oSlcText);
+			}
 
 			angle += pourcentage;
 			listArcs.add(arc);
@@ -98,6 +133,17 @@ public class View extends JComponent implements Observer {
 		Arc2D.Double centralArc = new Arc2D.Double(175, 175, 150, 150, 0, 360, Arc2D.PIE);
 		g2.setColor(Color.BLACK);
 		g2.fill(centralArc);
+		
+		JTextArea oGlbText = new JTextArea();
+		String sCentralTxt = camembert.getMsTitle() + "\r\n" + String.valueOf(camembert.getMiValue());
+		oGlbText.setText(sCentralTxt);
+		oGlbText.setForeground(Color.WHITE);
+		oGlbText.setEditable(false);
+		oGlbText.setBounds(200, 200, 100, 100);
+		oGlbText.setBackground(Color.BLACK);
+		oGlbText.setBorder(null);
+		
+		this.add(oGlbText);
 		
 		listArcs.add(blanckArc);
 		

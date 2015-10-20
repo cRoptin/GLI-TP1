@@ -45,12 +45,13 @@ public class Fenetre extends JFrame {
 
 		// Dessine le graphe représentant le stock
 		this.camembert = new Camembert();
-		this.camembert.addItem("livre", "", 40);
+		camembert.setMsTitle("Camembert");
+		this.camembert.addItem("livre", "", 10);
 		this.camembert.addItem("tasse", "", 10);
-		this.camembert.addItem("crayon", "", 50);
-		this.camembert.addItem("gomme", "", 40);
+		this.camembert.addItem("crayon", "", 10);
+		this.camembert.addItem("gomme", "", 10);
 		this.camembert.addItem("colle", "", 10);
-		this.camembert.addItem("camembert", "", 50);
+		this.camembert.addItem("camembert", "", 10);
 		
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
