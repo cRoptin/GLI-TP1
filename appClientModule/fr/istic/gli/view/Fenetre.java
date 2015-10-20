@@ -54,13 +54,12 @@ public class Fenetre extends JFrame {
 		
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
-		//btnAdd.addMouseListener(new Controller());
 		this.getContentPane().add(btnAdd, BorderLayout.SOUTH);
 
-		this.addMouseListener(new Controller(this.camembert));
-		
 		view = new View();
 		view.setCamembert(camembert);
+		
+		view.addMouseListener(new Controller(this.view));
 
 		this.getContentPane().add(view);
 

@@ -2,8 +2,11 @@ package fr.istic.gli.controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Point2D;
 
 import fr.istic.gli.model.Camembert;
+import fr.istic.gli.view.View;
 
 public class Controller implements MouseListener {
 
@@ -15,44 +18,41 @@ public class Controller implements MouseListener {
 	/**
 	 * The model
 	 */
-	private Camembert moCamembert;
+	private View moView;
 
 	/**
 	 * 
 	 */
-	public Controller(Camembert poCamembert) {
+	public Controller(View poView) {
 		super();
-		this.moCamembert = poCamembert;
+		this.moView = poView;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		moCamembert.getMloItems().get(0).setMiValue(100);
-		moCamembert.notifyObservers();
-		System.out.println("J'ai cliqué");
+		Point2D oPoint = moView.getMousePosition();
+		int iSlcArc = moView.getArcPointClicked(oPoint);
+		
+		moView.update(new Camembert(), iSlcArc);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("J'ai appuyé");
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("J'ai relaché");
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		System.out.println("Je suis entré");
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("Je suis sortis");
 		
 	}
 

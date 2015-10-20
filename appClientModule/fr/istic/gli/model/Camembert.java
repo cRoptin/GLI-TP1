@@ -7,7 +7,7 @@ import java.util.Observer;
 /**
  * 
  */
-public class Camembert extends Model implements Observer {
+public class Camembert extends Model {
 
 	@Override
 	public boolean addItem(String psTitle, String psDescr, int piValue) {
@@ -28,11 +28,5 @@ public class Camembert extends Model implements Observer {
 	
 	public List<Item> getMloItems() {
 		return super.getMloItems();
-	}
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 }

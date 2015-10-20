@@ -31,6 +31,17 @@ public class View extends JComponent implements Observer {
 	
 	/** The list arcs. */
 	private List<Arc2D> listArcs;
+	
+	private static Graphics2D g2;
+	
+	/**
+	 * 
+	 */
+	private final int iStdSize = 400;
+	/**
+	 * 
+	 */
+	private final int iExtSize = 50;
 
 	/**
 	 * Instantiates a new view.
@@ -60,7 +71,7 @@ public class View extends JComponent implements Observer {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
+		g2 = (Graphics2D) g;
 
 		Camembert camembert = this.getCamembert();
 		List<Item> elements = camembert.getMloItems();
@@ -68,8 +79,11 @@ public class View extends JComponent implements Observer {
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
 			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
-			Arc2D.Double arc = new Arc2D.Double(50, 50, 400, 400, angle,
-					pourcentage, Arc2D.PIE);
+			int iSize = iStdSize;
+			if (elements.get(i).getMbHighLights()) {
+				iSize += iExtSize;
+			}
+			Arc2D.Double arc = new Arc2D.Double(50 - ((iSize - iStdSize) / 2), 50 - ((iSize - iStdSize) / 2), iSize, iSize, angle, pourcentage, Arc2D.PIE);
 			g2.setColor(new Color(new Random().nextInt()));
 			g2.fill(arc);
 
@@ -105,16 +119,18 @@ public class View extends JComponent implements Observer {
 		return -1;
 	}
 
-
-	/*@Override
-	public void update(Observable arg0, Object arg1) {
-		//repaint();
-	}*/
-
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		int iSlcArc = (int) arg;
+		for (int i = 0; i < camembert.getMloItems().size(); i++) {
+			Item oTmpItem = camembert.getMloItems().get(i);
+			if (i == iSlcArc) {
+				oTmpItem.setMbHighLights(true);
+			} else {
+				oTmpItem.setMbHighLights(false);
+			}
+		}
+		repaint();
 	}
 
 }

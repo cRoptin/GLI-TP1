@@ -55,4 +55,17 @@ public class Item {
 	public void setMiValue(int miValue) {
 		this.miValue = miValue;
 	}
+	/**
+	 * @return the mbHighLights
+	 */
+	public boolean getMbHighLights() {
+		return mbHighLights;
+	}
+	/**
+	 * @param mbHighLights the mbHighLights to set
+	 */
+	public void setMbHighLights(boolean mbHighLights) {
+		this.mbHighLights = mbHighLights;
+	}
+	
 }
