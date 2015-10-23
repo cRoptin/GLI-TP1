@@ -85,6 +85,7 @@ public class View extends JComponent implements Observer {
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
 			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
+			
 			int iSize = iStdSize;
 			if (elements.get(i).getMbHighLights()) {
 				iSize += iExtSize;
@@ -105,19 +106,17 @@ public class View extends JComponent implements Observer {
 				double dXPoint = arc.getBounds2D().getX();
 				double dYPoint = arc.getBounds2D().getY();
 				
-				System.out.println("X : " + dXPoint + " Y : " + dYPoint);
-				
-				if (dXPoint < 50 && dYPoint < 50) {
-					oSlcText.setBounds(50, 50, 50, 50);
+				if (dXPoint < 80 && dYPoint < 80) {
+					oSlcText.setBounds(10, 30, 80, 80);
 				}
-				if (dXPoint > 50 && dYPoint < 50) {
-					oSlcText.setBounds(250, 50, 50, 50);
+				if (dXPoint > 80 && dYPoint < 80) {
+					oSlcText.setBounds(430, 30, 80, 80);
 				}
-				if (dXPoint < 50 && dYPoint > 50) {
-					oSlcText.setBounds(50, 250, 50, 50);
+				if (dXPoint < 80 && dYPoint > 80) {
+					oSlcText.setBounds(10, 470, 80, 80);
 				}
-				if (dXPoint > 50 && dYPoint > 50) {
-					oSlcText.setBounds(250, 250, 50, 50);
+				if (dXPoint > 80 && dYPoint > 80) {
+					oSlcText.setBounds(430, 470, 80, 80);
 				}
 				this.add(oSlcText);
 			}

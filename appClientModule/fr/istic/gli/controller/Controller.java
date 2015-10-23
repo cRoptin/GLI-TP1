@@ -33,7 +33,7 @@ public class Controller implements MouseListener {
 		Point2D oPoint = moView.getMousePosition();
 		int iSlcArc = moView.getArcPointClicked(oPoint);
 		
-		moView.update(new Camembert(), iSlcArc);
+		moView.update(null, iSlcArc);
 	}
 
 	@Override

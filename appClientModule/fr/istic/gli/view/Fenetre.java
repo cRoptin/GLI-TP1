@@ -50,8 +50,8 @@ public class Fenetre extends JFrame {
 		this.camembert.addItem("tasse", "", 10);
 		this.camembert.addItem("crayon", "", 10);
 		this.camembert.addItem("gomme", "", 10);
-		this.camembert.addItem("colle", "", 10);
-		this.camembert.addItem("camembert", "", 10);
+		this.camembert.addItem("pbs", "", 10);
+		this.camembert.addItem("pb", "", 10);
 		
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
@@ -64,7 +64,7 @@ public class Fenetre extends JFrame {
 
 		this.getContentPane().add(view);
 
-		//this.getContentPane().add(new JScrollPane(camembert), BorderLayout.EAST);
+		this.getContentPane().add(new JScrollPane(camembert), BorderLayout.EAST);
 	}
 
 	/**

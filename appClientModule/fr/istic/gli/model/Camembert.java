@@ -2,11 +2,9 @@ package fr.istic.gli.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * 
@@ -124,12 +122,17 @@ public class Camembert extends JTable {
 		if (loItems != null && loItems.size() >= piIndex && loItems.get(piIndex) != null) {
 			iPartValue = loItems.get(piIndex).getMiValue();
 		}
-		fRes = (iPartValue * 100) / this.miValue;
+		fRes = (float) (iPartValue * 100) / this.miValue;
 		return fRes;
 	}
 	
 	public List<Item> getMloItems() {
 		return this.loItems;
 	}
-
+	
+	@Override
+	public void setModel(TableModel dataModel) {
+		// TODO Auto-generated method stub
+		super.setModel(dataModel);
+	}
 }
