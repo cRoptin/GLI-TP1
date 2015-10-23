@@ -90,8 +90,15 @@ public class View extends JComponent implements Observer {
 			if (elements.get(i).getMbHighLights()) {
 				iSize += iExtSize;
 			}
+			Color tmpColor = new Color(new Random().nextInt());
+			if(elements.get(i).getMcColor() != null){
+				tmpColor = elements.get(i).getMcColor();
+			}
+			else{
+				elements.get(i).setMcColor(tmpColor);
+			}
 			Arc2D.Double arc = new Arc2D.Double(50 - ((iSize - iStdSize) / 2), 50 - ((iSize - iStdSize) / 2), iSize, iSize, angle, pourcentage, Arc2D.PIE);
-			g2.setColor(new Color(new Random().nextInt()));
+			g2.setColor(tmpColor);
 			g2.fill(arc);
 			
 			if (elements.get(i).getMbHighLights()) {

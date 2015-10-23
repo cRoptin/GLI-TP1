@@ -1,5 +1,7 @@
 package fr.istic.gli.model;
 
+import java.awt.Color;
+
 public class Item {
 
 	/**
@@ -14,6 +16,8 @@ public class Item {
 	 * The item value
 	 */
 	private int miValue = 0;
+	
+	private Color mcColor = null;
 	/**
 	 * True if selected
 	 */
@@ -66,6 +70,18 @@ public class Item {
 	 */
 	public void setMbHighLights(boolean mbHighLights) {
 		this.mbHighLights = mbHighLights;
+	}
+	/**
+	 * @return the mcColor
+	 */
+	public Color getMcColor() {
+		return mcColor;
+	}
+	/**
+	 * @param mcColor the mcColor to set
+	 */
+	public void setMcColor(Color mcColor) {
+		this.mcColor = mcColor;
 	}
 	
 }
