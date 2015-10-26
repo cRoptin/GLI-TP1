@@ -77,7 +77,9 @@ public class Controller implements MouseListener, ActionListener {
 						} else if(oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_DESCR).append(slcIdx).toString())) {
 							oEditItem.setMsDescription(oText.getText());
 						} else if(oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_VALUE).append(slcIdx).toString())) {
-							oEditItem.setMiValue(Integer.parseInt(oText.getText()));
+							if (oText.getText().matches("^-?\\d+$")) {
+								oEditItem.setMiValue(Integer.parseInt(oText.getText()));
+							}
 						}
 					}
 				}
