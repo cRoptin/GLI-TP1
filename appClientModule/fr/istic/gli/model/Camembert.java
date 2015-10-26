@@ -35,7 +35,7 @@ public class Camembert extends JTable {
 	 * The list of items
 	 */
 	private List<Item> loItems = null;
-	
+
 	/**
 	 * Add an new item
 	 * @param psTitle the title : String
@@ -51,23 +51,25 @@ public class Camembert extends JTable {
 				sNewTitle = DEFAULT_TITLE;
 			}
 			oNewItem.setMsName(sNewTitle);
-			
+
 			String sNewDescr = psDescription;
 			if ("".equals(sNewDescr)) {
 				sNewDescr = DEFAULT_DESCR;
 			}
 			oNewItem.setMsDescription(sNewDescr);
 			oNewItem.setMiValue(piValue);
+			oNewItem.setMbHighLights(true);
 			bAdded = true;
 			this.miValue += piValue;
 			if (this.loItems == null) {
 				this.loItems = new ArrayList<Item>();
 			}
+			initSelection();
 			this.loItems.add(oNewItem);
 		}
 		return bAdded;
 	}
-	
+
 	public void removeItem(int piIndex) {
 		if (this.loItems != null && this.loItems.size() > 0) {
 			for (int iIdx = 0; iIdx < loItems.size(); iIdx++) {
@@ -79,6 +81,31 @@ public class Camembert extends JTable {
 		}
 	}
 	
+	public int getSelectedIdx() {
+		int iRes = -1;
+		if (this.getMloItems() != null && this.getMloItems().size() > 0) {
+			for (int iIdx = 0; iIdx < this.getMloItems().size(); iIdx++) {
+				if (this.getMloItems().get(iIdx).getMbHighLights()) {
+					iRes = iIdx;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public void updateItem(String psTitle, String psDescription, int piValue) {
+		int iSlcIdx = getSelectedIdx();
+		if (!psTitle.isEmpty()) {
+			
+		} else if (!psDescription.isEmpty()) {
+			
+		} else if (piValue > -1) {
+			if (piValue == 0) {
+				removeItem(iSlcIdx);
+			}
+		}
+	}
+
 	/**
 	 * Get the item title
 	 * @return the msTitle
@@ -110,7 +137,7 @@ public class Camembert extends JTable {
 	public void setMiValue(int miValue) {
 		this.miValue = miValue;
 	}
-	
+
 	/**
 	 * Calcul of part pourcentage
 	 * @param piIndex : Index of the element
@@ -125,14 +152,21 @@ public class Camembert extends JTable {
 		fRes = (float) (iPartValue * 100) / this.miValue;
 		return fRes;
 	}
-	
+
 	public List<Item> getMloItems() {
 		return this.loItems;
 	}
-	
+
 	@Override
 	public void setModel(TableModel dataModel) {
-		// TODO Auto-generated method stub
 		super.setModel(dataModel);
+	}
+
+	public void initSelection() {
+		for (int iIdx = 0; iIdx < this.loItems.size(); iIdx++) {
+			Item tmpItem = this.loItems.get(iIdx);
+			tmpItem.setMbHighLights(false);
+			this.loItems.set(iIdx, tmpItem);
+		}
 	}
 }

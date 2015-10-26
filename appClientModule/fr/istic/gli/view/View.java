@@ -6,17 +6,18 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 
+import fr.istic.gli.controller.Controller;
+import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.model.Item;
 
@@ -25,6 +26,11 @@ import fr.istic.gli.model.Item;
  */
 public class View extends JComponent implements Observer {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -542653201176862734L;
+
 	/** The angle. */
 	private float angle = 0;
 	
@@ -102,30 +108,43 @@ public class View extends JComponent implements Observer {
 			g2.fill(arc);
 			
 			if (elements.get(i).getMbHighLights()) {
-				JTextArea oSlcText = new JTextArea();
+				
+				JTextField oTitleField = new JTextField();
+				oTitleField.addActionListener(new Controller(this, TypeAction.EDIT_TITLE));
+				oTitleField.setText(elements.get(i).getMsName());
+				oTitleField.setName("titleData_" + i);
+				JTextField oValueField = new JTextField();
+				oValueField.setText(String.valueOf(elements.get(i).getMiValue()));
+				oValueField.addActionListener(new Controller(this, TypeAction.EDIT_VALUE));
+				JTextField oDescrField = new JTextField();
+				oDescrField.setText(elements.get(i).getMsDescription());
+				oDescrField.addActionListener(new Controller(this, TypeAction.EDIT_DESCR));
+				/*JTextArea oSlcText = new JTextArea();
 				String sArcTxt = elements.get(i).getMsName() + "\r\n" + String.valueOf(elements.get(i).getMiValue());
 				oSlcText.setText(sArcTxt);
 				oSlcText.setForeground(Color.BLACK);
-				oSlcText.setEditable(false);
+				oSlcText.setEditable(true);
 				oSlcText.setBackground(g2.getColor());
 				oSlcText.setBorder(null);
+				oSlcText.addKeyListener(new Controller(this));*/
+				
 				
 				double dXPoint = arc.getBounds2D().getX();
 				double dYPoint = arc.getBounds2D().getY();
 				
 				if (dXPoint < 80 && dYPoint < 80) {
-					oSlcText.setBounds(10, 30, 80, 80);
+					oTitleField.setBounds(10, 30, 80, 80);
 				}
 				if (dXPoint > 80 && dYPoint < 80) {
-					oSlcText.setBounds(430, 30, 80, 80);
+					oTitleField.setBounds(430, 30, 80, 80);
 				}
 				if (dXPoint < 80 && dYPoint > 80) {
-					oSlcText.setBounds(10, 470, 80, 80);
+					oTitleField.setBounds(10, 470, 80, 80);
 				}
 				if (dXPoint > 80 && dYPoint > 80) {
-					oSlcText.setBounds(430, 470, 80, 80);
+					oTitleField.setBounds(430, 470, 80, 80);
 				}
-				this.add(oSlcText);
+				this.add(oTitleField);
 			}
 
 			angle += pourcentage;

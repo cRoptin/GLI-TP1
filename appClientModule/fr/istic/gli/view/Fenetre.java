@@ -3,31 +3,27 @@ package fr.istic.gli.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-
 import fr.istic.gli.controller.Controller;
+import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
-import fr.istic.gli.model.Item;
 
 /**
  * The Class Fenetre.
  */
 public class Fenetre extends JFrame {
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4175199347831090483L;
+
 	/** The title. */
 	private JLabel title = new JLabel();
-	
-	/**
-	 * The add button
-	 */
-	private JButton btnAdd = new JButton("Ajouter");
 	
 	/** The view. */
 	private View view;
@@ -53,14 +49,18 @@ public class Fenetre extends JFrame {
 		this.camembert.addItem("pbs", "", 10);
 		this.camembert.addItem("pb", "", 10);
 		
+		this.camembert.initSelection();
+		
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
-		this.getContentPane().add(btnAdd, BorderLayout.SOUTH);
 
 		view = new View();
 		view.setCamembert(camembert);
+		JButton newBtn = new JButton("Ajouter");
+		newBtn.addActionListener(new Controller(view, TypeAction.ADD_ITEM));
+		this.getContentPane().add(newBtn, BorderLayout.SOUTH);
 		
-		view.addMouseListener(new Controller(this.view));
+		view.addMouseListener(new Controller(this.view, null));
 
 		this.getContentPane().add(view);
 

@@ -1,38 +1,41 @@
 package fr.istic.gli.controller;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;
 
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
+
+import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.view.View;
 
-public class Controller implements MouseListener {
+public class Controller implements MouseListener, ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1888821953295699072L;
-	
 	/**
 	 * The model
 	 */
 	private View moView;
+	private TypeAction moTypeAction;
+	private static final String ITEM_TITLE = "titleItem_";
 
 	/**
 	 * 
 	 */
-	public Controller(View poView) {
+	public Controller(View poView, TypeAction poTypeAction) {
 		super();
 		this.moView = poView;
+		this.moTypeAction = poTypeAction;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Point2D oPoint = moView.getMousePosition();
 		int iSlcArc = moView.getArcPointClicked(oPoint);
-		
 		moView.update(null, iSlcArc);
 	}
 
@@ -56,5 +59,24 @@ public class Controller implements MouseListener {
 		
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Camembert tmpCamembert = this.moView.getCamembert();
+		int slcIdx = tmpCamembert.getSelectedIdx();
+		if (TypeAction.ADD_ITEM.equals(this.moTypeAction)) {
+			tmpCamembert.addItem("", "", 1);
+			moView.repaint();
+		} else {
+			if (TypeAction.EDIT_TITLE.equals(this.moTypeAction)) {
+				for (Component oComp : this.moView.getComponents()) {
+					if (oComp != null && oComp.getName() != null
+							&& oComp.getName().equals(new StringBuilder(ITEM_TITLE).append(slcIdx).toString())) {
+						JTextField oText = (JTextField) oComp;
+						System.out.println(oText.getText());
+					}
+				}
+			}
+		}
+	}
 	
 }
