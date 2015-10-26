@@ -88,6 +88,8 @@ public class View extends JComponent implements Observer {
 		
 		this.removeAll();
 		
+		listArcs = new ArrayList<Arc2D>();
+		
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
 			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
@@ -204,6 +206,11 @@ public class View extends JComponent implements Observer {
 			}
 		}
 		repaint();
+	}
+	
+	@Override
+	public void paintComponents(Graphics g) {
+		super.paintComponents(g);
 	}
 
 }
