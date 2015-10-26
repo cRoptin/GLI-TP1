@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
 
+import fr.istic.gli.main.ConstantProperties;
 import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.view.View;
@@ -21,7 +22,6 @@ public class Controller implements MouseListener, ActionListener {
 	 */
 	private View moView;
 	private TypeAction moTypeAction;
-	private static final String ITEM_TITLE = "titleItem_";
 
 	/**
 	 * 
@@ -70,7 +70,7 @@ public class Controller implements MouseListener, ActionListener {
 			if (TypeAction.EDIT_TITLE.equals(this.moTypeAction)) {
 				for (Component oComp : this.moView.getComponents()) {
 					if (oComp != null && oComp.getName() != null
-							&& oComp.getName().equals(new StringBuilder(ITEM_TITLE).append(slcIdx).toString())) {
+							&& oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_TITLE).append(slcIdx).toString())) {
 						JTextField oText = (JTextField) oComp;
 						System.out.println(oText.getText());
 					}

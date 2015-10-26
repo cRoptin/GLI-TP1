@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import fr.istic.gli.controller.Controller;
+import fr.istic.gli.main.ConstantProperties;
 import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
 import fr.istic.gli.model.Item;
@@ -112,7 +113,7 @@ public class View extends JComponent implements Observer {
 				JTextField oTitleField = new JTextField();
 				oTitleField.addActionListener(new Controller(this, TypeAction.EDIT_TITLE));
 				oTitleField.setText(elements.get(i).getMsName());
-				oTitleField.setName("titleData_" + i);
+				oTitleField.setName(ConstantProperties.ITEM_TITLE + i);
 				JTextField oValueField = new JTextField();
 				oValueField.setText(String.valueOf(elements.get(i).getMiValue()));
 				oValueField.addActionListener(new Controller(this, TypeAction.EDIT_VALUE));
