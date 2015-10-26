@@ -90,7 +90,7 @@ public class Camembert extends JTable {
 				}
 			}
 		}
-		return -1;
+		return iRes;
 	}
 	
 	public void updateItem(String psTitle, String psDescription, int piValue) {

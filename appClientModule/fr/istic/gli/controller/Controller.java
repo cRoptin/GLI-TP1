@@ -73,6 +73,7 @@ public class Controller implements MouseListener, ActionListener {
 							&& oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_TITLE).append(slcIdx).toString())) {
 						JTextField oText = (JTextField) oComp;
 						System.out.println(oText.getText());
+						tmpCamembert.updateItem(oText.getText(), "", -1);
 					}
 				}
 			}
