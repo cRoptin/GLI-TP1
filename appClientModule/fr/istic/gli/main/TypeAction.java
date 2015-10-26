@@ -1,6 +1,9 @@
 package fr.istic.gli.main;
 
+/**
+ * Enumeration of action's type
+ */
 public enum TypeAction {
 
-	EDIT_TITLE, EDIT_DESCR, EDIT_VALUE, ADD_ITEM;
+	EDIT_ITEM, ADD_ITEM;
 }

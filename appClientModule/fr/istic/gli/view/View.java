@@ -11,7 +11,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -111,41 +110,44 @@ public class View extends JComponent implements Observer {
 			if (elements.get(i).getMbHighLights()) {
 				
 				JTextField oTitleField = new JTextField();
-				oTitleField.addActionListener(new Controller(this, TypeAction.EDIT_TITLE));
+				oTitleField.addActionListener(new Controller(this, TypeAction.EDIT_ITEM));
 				oTitleField.setText(elements.get(i).getMsName());
 				oTitleField.setName(ConstantProperties.ITEM_TITLE + i);
 				JTextField oValueField = new JTextField();
 				oValueField.setText(String.valueOf(elements.get(i).getMiValue()));
-				oValueField.addActionListener(new Controller(this, TypeAction.EDIT_VALUE));
+				oValueField.addActionListener(new Controller(this, TypeAction.EDIT_ITEM));
+				oValueField.setName(ConstantProperties.ITEM_VALUE + i);
 				JTextField oDescrField = new JTextField();
 				oDescrField.setText(elements.get(i).getMsDescription());
-				oDescrField.addActionListener(new Controller(this, TypeAction.EDIT_DESCR));
-				/*JTextArea oSlcText = new JTextArea();
-				String sArcTxt = elements.get(i).getMsName() + "\r\n" + String.valueOf(elements.get(i).getMiValue());
-				oSlcText.setText(sArcTxt);
-				oSlcText.setForeground(Color.BLACK);
-				oSlcText.setEditable(true);
-				oSlcText.setBackground(g2.getColor());
-				oSlcText.setBorder(null);
-				oSlcText.addKeyListener(new Controller(this));*/
-				
+				oDescrField.addActionListener(new Controller(this, TypeAction.EDIT_ITEM));
+				oDescrField.setName(ConstantProperties.ITEM_DESCR + i);
 				
 				double dXPoint = arc.getBounds2D().getX();
 				double dYPoint = arc.getBounds2D().getY();
 				
 				if (dXPoint < 80 && dYPoint < 80) {
-					oTitleField.setBounds(10, 30, 80, 80);
+					oTitleField.setBounds(10, 30, 80, 20);
+					oValueField.setBounds(10, 50, 80, 20);
+					oDescrField.setBounds(10, 70, 80, 40);
 				}
 				if (dXPoint > 80 && dYPoint < 80) {
-					oTitleField.setBounds(430, 30, 80, 80);
+					oTitleField.setBounds(430, 30, 80, 20);
+					oValueField.setBounds(430, 50, 80, 20);
+					oDescrField.setBounds(430, 70, 80, 40);
 				}
 				if (dXPoint < 80 && dYPoint > 80) {
-					oTitleField.setBounds(10, 470, 80, 80);
+					oTitleField.setBounds(10, 470, 80, 20);
+					oValueField.setBounds(10, 490, 80, 20);
+					oDescrField.setBounds(10, 510, 80, 40);
 				}
 				if (dXPoint > 80 && dYPoint > 80) {
-					oTitleField.setBounds(430, 470, 80, 80);
+					oTitleField.setBounds(430, 470, 80, 20);
+					oValueField.setBounds(430, 490, 80, 20);
+					oDescrField.setBounds(430, 510, 80, 40);
 				}
 				this.add(oTitleField);
+				this.add(oValueField);
+				this.add(oDescrField);
 			}
 
 			angle += pourcentage;
@@ -178,13 +180,12 @@ public class View extends JComponent implements Observer {
 
 	/**
 	 * Gets the arc point clicked.
-	 *
-	 * @param p the p
+	 * @param the clicked point
 	 * @return the arc point clicked
 	 */
-	public int getArcPointClicked(Point2D p) {
+	public int getArcPointClicked(Point2D poPoint) {
 		for (int i = 0; i < listArcs.size(); i++) {
-			if (listArcs.get(i).contains(p.getX(), p.getY())) {
+			if (listArcs.get(i).contains(poPoint.getX(), poPoint.getY())) {
 				return i;
 			}
 		}

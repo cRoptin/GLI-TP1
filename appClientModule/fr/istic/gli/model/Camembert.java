@@ -70,6 +70,10 @@ public class Camembert extends JTable {
 		return bAdded;
 	}
 
+	/**
+	 * Remove an item from the camembert
+	 * @param index of the arc to remove
+	 */
 	public void removeItem(int piIndex) {
 		if (this.loItems != null && this.loItems.size() > 0) {
 			for (int iIdx = 0; iIdx < loItems.size(); iIdx++) {
@@ -81,6 +85,10 @@ public class Camembert extends JTable {
 		}
 	}
 	
+	/**
+	 * Found the selected arc index
+	 * @return the arc index (int)
+	 */
 	public int getSelectedIdx() {
 		int iRes = -1;
 		if (this.getMloItems() != null && this.getMloItems().size() > 0) {
@@ -93,17 +101,29 @@ public class Camembert extends JTable {
 		return iRes;
 	}
 	
-	public void updateItem(String psTitle, String psDescription, int piValue) {
-		int iSlcIdx = getSelectedIdx();
-		if (!psTitle.isEmpty()) {
-			
-		} else if (!psDescription.isEmpty()) {
-			
-		} else if (piValue > -1) {
-			if (piValue == 0) {
-				removeItem(iSlcIdx);
-			}
+	/**
+	 * Update the total value of a camembert
+	 */
+	private void calculTotal() {
+		int total = 0;
+		for (Item oItem : this.getMloItems()) {
+			total += oItem.getMiValue();
 		}
+		this.setMiValue(total);
+	}
+	
+	/**
+	 * Update an item of camembert
+	 * @param poUpdItem
+	 */
+	public void updateItem(Item poUpdItem) {
+		int iSlcIdx = getSelectedIdx();
+		if (poUpdItem.getMiValue() == 0) {
+			removeItem(iSlcIdx);
+		} else {
+			this.getMloItems().set(iSlcIdx, poUpdItem);
+		}
+		calculTotal();
 	}
 
 	/**

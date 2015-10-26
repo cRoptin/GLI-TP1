@@ -8,11 +8,11 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 import fr.istic.gli.main.ConstantProperties;
 import fr.istic.gli.main.TypeAction;
 import fr.istic.gli.model.Camembert;
+import fr.istic.gli.model.Item;
 import fr.istic.gli.view.View;
 
 public class Controller implements MouseListener, ActionListener {
@@ -67,15 +67,22 @@ public class Controller implements MouseListener, ActionListener {
 			tmpCamembert.addItem("", "", 1);
 			moView.repaint();
 		} else {
-			if (TypeAction.EDIT_TITLE.equals(this.moTypeAction)) {
+			if (TypeAction.EDIT_ITEM.equals(this.moTypeAction)) {
+				Item oEditItem = tmpCamembert.getMloItems().get(slcIdx);
 				for (Component oComp : this.moView.getComponents()) {
-					if (oComp != null && oComp.getName() != null
-							&& oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_TITLE).append(slcIdx).toString())) {
+					if (oComp != null && oComp.getName() != null) {
 						JTextField oText = (JTextField) oComp;
-						System.out.println(oText.getText());
-						tmpCamembert.updateItem(oText.getText(), "", -1);
+						if(oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_TITLE).append(slcIdx).toString())) {
+							oEditItem.setMsName(oText.getText());
+						} else if(oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_DESCR).append(slcIdx).toString())) {
+							oEditItem.setMsDescription(oText.getText());
+						} else if(oComp.getName().equals(new StringBuilder(ConstantProperties.ITEM_VALUE).append(slcIdx).toString())) {
+							oEditItem.setMiValue(Integer.parseInt(oText.getText()));
+						}
 					}
 				}
+				tmpCamembert.updateItem(oEditItem);
+				moView.repaint();
 			}
 		}
 	}

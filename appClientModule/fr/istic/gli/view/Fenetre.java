@@ -2,7 +2,6 @@ package fr.istic.gli.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.geom.Point2D;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -74,21 +73,6 @@ public class Fenetre extends JFrame {
 	 */
 	public View getView() {
 		return view;
-	}
-	
-	
-	/**
-	 * Handle mouse click.
-	 *
-	 * @param p the p
-	 */
-	public void handleMouseClick(Point2D p) {
-		/*int index = view.getArcPointClicked(p);
-		if (index != -1) {
-			title.setText("produit : " + model.getElements().get(index).getName()
-					+ " - " + " nombre en stock : " + model.getElements().get(index).getValue());
-			revalidate();
-		}*/
 	}
 
 
