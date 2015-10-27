@@ -25,7 +25,7 @@ public class Fenetre extends JFrame {
 	/**
 	 *  The view. 
 	 */
-	private View view;
+	private ViewImpl view;
 
 	/**
 	 * Instantiates a new fenetre.
@@ -38,7 +38,7 @@ public class Fenetre extends JFrame {
 		title.setText(" ");
 		this.getContentPane().add(title, BorderLayout.SOUTH);
 
-		view = new View();
+		view = new ViewImpl();
 		view.initCamembert();
 		JButton btnAdd = new JButton("Ajouter");
 		btnAdd.addActionListener(new Controller(view, TypeAction.ADD_ITEM));
@@ -64,7 +64,7 @@ public class Fenetre extends JFrame {
 	 *
 	 * @return the view
 	 */
-	public View getView() {
+	public ViewImpl getView() {
 		return view;
 	}
 

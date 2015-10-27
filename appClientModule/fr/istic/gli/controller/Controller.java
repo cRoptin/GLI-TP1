@@ -11,22 +11,22 @@ import javax.swing.JTextField;
 
 import fr.istic.gli.main.ConstantProperties;
 import fr.istic.gli.main.TypeAction;
-import fr.istic.gli.model.Camembert;
+import fr.istic.gli.model.CamembertImpl;
 import fr.istic.gli.model.Item;
-import fr.istic.gli.view.View;
+import fr.istic.gli.view.ViewImpl;
 
 public class Controller implements MouseListener, ActionListener {
 
 	/**
 	 * The model
 	 */
-	private View moView;
+	private ViewImpl moView;
 	private TypeAction moTypeAction;
 
 	/**
 	 * 
 	 */
-	public Controller(View poView, TypeAction poTypeAction) {
+	public Controller(ViewImpl poView, TypeAction poTypeAction) {
 		super();
 		this.moView = poView;
 		this.moTypeAction = poTypeAction;
@@ -34,7 +34,7 @@ public class Controller implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Camembert oCamembert = moView.getCamembert();
+		CamembertImpl oCamembert = moView.getCamembert();
 		Point2D oPoint = moView.getMousePosition();
 		int iSlcArc = moView.getArcPointClicked(oPoint);
 		oCamembert.updateAddItem(iSlcArc);
@@ -63,7 +63,7 @@ public class Controller implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Camembert oCamembert = this.moView.getCamembert();
+		CamembertImpl oCamembert = this.moView.getCamembert();
 		int slcIdx = oCamembert.getSelectedIdx();
 		if (TypeAction.ADD_ITEM.equals(this.moTypeAction)) {
 			oCamembert.addItem("", "", 1);

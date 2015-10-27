@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 
  */
-public class Camembert {
+public class CamembertImpl implements Camembert {
 	/**
 	 * Default value for items title
 	 */

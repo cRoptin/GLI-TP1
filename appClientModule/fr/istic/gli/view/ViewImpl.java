@@ -19,13 +19,13 @@ import javax.swing.text.StyledDocument;
 import fr.istic.gli.controller.Controller;
 import fr.istic.gli.main.ConstantProperties;
 import fr.istic.gli.main.TypeAction;
-import fr.istic.gli.model.Camembert;
+import fr.istic.gli.model.CamembertImpl;
 import fr.istic.gli.model.Item;
 
 /**
  * The Class View.
  */
-public class View extends JComponent {
+public class ViewImpl extends JComponent implements View {
 
 	/**
 	 * 
@@ -40,7 +40,7 @@ public class View extends JComponent {
 	/**
 	 * The model
 	 */
-	private Camembert camembert;
+	private CamembertImpl camembert;
 
 	/**
 	 *  The list arcs.
@@ -64,7 +64,7 @@ public class View extends JComponent {
 	/**
 	 * Instantiates a new view.
 	 */
-	public View() {
+	public ViewImpl() {
 		listArcs = new ArrayList<Arc2D>();
 	}
 
@@ -72,7 +72,7 @@ public class View extends JComponent {
 	 * Initialisation of the camembert
 	 */
 	public void initCamembert() {
-		Camembert initCam= new Camembert();
+		CamembertImpl initCam= new CamembertImpl();
 		initCam.setMsTitle("Camembert");
 		initCam.addItem("", "", 1);
 		initCam.initSelection();
@@ -84,7 +84,7 @@ public class View extends JComponent {
 	 *
 	 * @return the model
 	 */
-	public Camembert getCamembert() {
+	public CamembertImpl getCamembert() {
 		return camembert;
 	}
 
@@ -93,7 +93,7 @@ public class View extends JComponent {
 	 *
 	 * @param model the new model
 	 */
-	public void setCamembert(Camembert camembert) {
+	public void setCamembert(CamembertImpl camembert) {
 		this.camembert = camembert;
 	}
 
@@ -102,7 +102,7 @@ public class View extends JComponent {
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
 
-		Camembert camembert = this.getCamembert();
+		CamembertImpl camembert = this.getCamembert();
 		List<Item> elements = camembert.getMloItems();
 
 		this.removeAll();
