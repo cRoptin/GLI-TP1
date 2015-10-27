@@ -68,9 +68,7 @@ public class ViewImpl extends JComponent implements View {
 		listArcs = new ArrayList<Arc2D>();
 	}
 
-	/**
-	 * Initialisation of the camembert
-	 */
+	@Override
 	public void initCamembert() {
 		CamembertImpl initCam= new CamembertImpl();
 		initCam.setMsTitle("Camembert");
@@ -79,20 +77,12 @@ public class ViewImpl extends JComponent implements View {
 		setCamembert(initCam);
 	}
 	
-	/**	
-	 * Gets the model.
-	 *
-	 * @return the model
-	 */
+	@Override
 	public CamembertImpl getCamembert() {
 		return camembert;
 	}
 
-	/**
-	 * Sets the model.
-	 *
-	 * @param model the new model
-	 */
+	@Override
 	public void setCamembert(CamembertImpl camembert) {
 		this.camembert = camembert;
 	}
@@ -206,11 +196,7 @@ public class ViewImpl extends JComponent implements View {
 		listArcs.add(centralArc);
 	}
 
-	/**
-	 * Gets the arc point clicked.
-	 * @param the clicked point
-	 * @return the arc point clicked
-	 */
+	@Override
 	public int getArcPointClicked(Point2D poPoint) {
 		if (poPoint != null) {
 			for (int i = 0; i < listArcs.size(); i++) {

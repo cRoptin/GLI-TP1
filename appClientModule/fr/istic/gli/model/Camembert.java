@@ -67,7 +67,14 @@ public interface Camembert {
 	 */
 	public float getPourcentage(int piIndex);
 
+	/**
+	 * Get the list of items
+	 * @return
+	 */
 	public List<Item> getMloItems();
 
+	/**
+	 * Unselect all items
+	 */
 	public void initSelection();
 }

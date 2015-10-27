@@ -28,12 +28,7 @@ public class CamembertImpl implements Camembert {
 	 */
 	private List<Item> loItems = null;
 
-	/**
-	 * Add an new item
-	 * @param psTitle the title : String
-	 * @param psDescription the description : String
-	 * @param piValue the value : superior or equal to 0 integer
-	 */
+	@Override
 	public boolean addItem(String psTitle, String psDescription, int piValue) {
 		boolean bAdded = false;
 		if (piValue >= 0) {
@@ -62,10 +57,7 @@ public class CamembertImpl implements Camembert {
 		return bAdded;
 	}
 
-	/**
-	 * Remove an item from the camembert
-	 * @param index of the arc to remove
-	 */
+	@Override
 	public void removeItem(int piIndex) {
 		if (this.loItems != null && this.loItems.size() > 0) {
 			for (int iIdx = 0; iIdx < loItems.size(); iIdx++) {
@@ -77,10 +69,7 @@ public class CamembertImpl implements Camembert {
 		}
 	}
 	
-	/**
-	 * Found the selected arc index
-	 * @return the arc index (int)
-	 */
+	@Override
 	public int getSelectedIdx() {
 		int iRes = -1;
 		if (this.getMloItems() != null && this.getMloItems().size() > 0) {
@@ -104,10 +93,7 @@ public class CamembertImpl implements Camembert {
 		this.setMiValue(total);
 	}
 	
-	/**
-	 * Update item to select the good item
-	 * @param piSlcArc
-	 */
+	@Override
 	public void updateAddItem(int piSlcArc) {
 		for (int i = 0; i < this.getMloItems().size(); i++) {
 			Item oTmpItem = this.getMloItems().get(i);
@@ -119,10 +105,7 @@ public class CamembertImpl implements Camembert {
 		}
 	}
 	
-	/**
-	 * Update an item of camembert
-	 * @param poUpdItem
-	 */
+	@Override
 	public void updateItem(Item poUpdItem) {
 		int iSlcIdx = getSelectedIdx();
 		if (poUpdItem.getMiValue() == 0) {
@@ -133,43 +116,27 @@ public class CamembertImpl implements Camembert {
 		calculTotal();
 	}
 
-	/**
-	 * Get the item title
-	 * @return the msTitle
-	 */
+	@Override
 	public String getMsTitle() {
 		return msTitle;
 	}
 
-	/**
-	 * Set the item title
-	 * @param msTitle the msTitle to set
-	 */
+	@Override
 	public void setMsTitle(String msTitle) {
 		this.msTitle = msTitle;
 	}
 
-	/**
-	 * Get the item value
-	 * @return the miValue
-	 */
+	@Override
 	public int getMiValue() {
 		return miValue;
 	}
 
-	/**
-	 * Set the item value
-	 * @param miValue the miValue to set
-	 */
+	@Override
 	public void setMiValue(int miValue) {
 		this.miValue = miValue;
 	}
 
-	/**
-	 * Calcul of part pourcentage
-	 * @param piIndex : Index of the element
-	 * @return the pourcentage
-	 */
+	@Override
 	public float getPourcentage(int piIndex) {
 		float fRes = 0;
 		int iPartValue = 0;
@@ -180,10 +147,12 @@ public class CamembertImpl implements Camembert {
 		return fRes;
 	}
 
+	@Override
 	public List<Item> getMloItems() {
 		return this.loItems;
 	}
 
+	@Override
 	public void initSelection() {
 		if (this.loItems != null) {
 			for (int iIdx = 0; iIdx < this.loItems.size(); iIdx++) {

@@ -24,7 +24,7 @@ public class Controller implements MouseListener, ActionListener {
 	private TypeAction moTypeAction;
 
 	/**
-	 * 
+	 * Constructor
 	 */
 	public Controller(ViewImpl poView, TypeAction poTypeAction) {
 		super();
