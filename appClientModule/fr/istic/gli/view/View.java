@@ -7,8 +7,6 @@ import java.util.List;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 
 import javax.swing.JComponent;
@@ -24,26 +22,33 @@ import fr.istic.gli.model.Item;
 /**
  * The Class View.
  */
-public class View extends JComponent implements Observer {
-	
+public class View extends JComponent {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -542653201176862734L;
 
-	/** The angle. */
+	/**
+	 *  The angle. 
+	 */
 	private float angle = 0;
-	
+
 	/**
 	 * The model
 	 */
 	private Camembert camembert;
-	
-	/** The list arcs. */
+
+	/**
+	 *  The list arcs.
+	 */
 	private List<Arc2D> listArcs;
-	
+
+	/**
+	 * 
+	 */
 	private static Graphics2D g2;
-	
+
 	/**
 	 * 
 	 */
@@ -61,6 +66,17 @@ public class View extends JComponent implements Observer {
 	}
 
 	/**
+	 * Initialisation of the camembert
+	 */
+	public void initCamembert() {
+		Camembert initCam= new Camembert();
+		initCam.setMsTitle("Camembert");
+		initCam.addItem("", "", 1);
+		initCam.initSelection();
+		setCamembert(initCam);
+	}
+	
+	/**	
 	 * Gets the model.
 	 *
 	 * @return the model
@@ -85,15 +101,15 @@ public class View extends JComponent implements Observer {
 
 		Camembert camembert = this.getCamembert();
 		List<Item> elements = camembert.getMloItems();
-		
+
 		this.removeAll();
-		
+
 		listArcs = new ArrayList<Arc2D>();
-		
+
 		// Calcul la taille des arcs et les ajoute à la view
 		for (int i = 0; i < elements.size(); i++) {
 			float pourcentage = (float) camembert.getPourcentage(i) * 3.6f;
-			
+
 			int iSize = iStdSize;
 			if (elements.get(i).getMbHighLights()) {
 				iSize += iExtSize;
@@ -108,9 +124,9 @@ public class View extends JComponent implements Observer {
 			Arc2D.Double arc = new Arc2D.Double(50 - ((iSize - iStdSize) / 2), 50 - ((iSize - iStdSize) / 2), iSize, iSize, angle, pourcentage, Arc2D.PIE);
 			g2.setColor(tmpColor);
 			g2.fill(arc);
-			
+
 			if (elements.get(i).getMbHighLights()) {
-				
+
 				JTextField oTitleField = new JTextField();
 				oTitleField.addActionListener(new Controller(this, TypeAction.EDIT_ITEM));
 				oTitleField.setText(elements.get(i).getMsName());
@@ -123,26 +139,26 @@ public class View extends JComponent implements Observer {
 				oDescrField.setText(elements.get(i).getMsDescription());
 				oDescrField.addActionListener(new Controller(this, TypeAction.EDIT_ITEM));
 				oDescrField.setName(ConstantProperties.ITEM_DESCR + i);
-				
+
 				double dXPoint = arc.getBounds2D().getX();
 				double dYPoint = arc.getBounds2D().getY();
-				
-				if (dXPoint < 80 && dYPoint < 80) {
+
+				if (dXPoint < 90 && dYPoint < 90) {
 					oTitleField.setBounds(10, 30, 80, 20);
 					oValueField.setBounds(10, 50, 80, 20);
 					oDescrField.setBounds(10, 70, 80, 40);
 				}
-				if (dXPoint > 80 && dYPoint < 80) {
+				if (dXPoint > 90 && dYPoint < 90) {
 					oTitleField.setBounds(430, 30, 80, 20);
 					oValueField.setBounds(430, 50, 80, 20);
 					oDescrField.setBounds(430, 70, 80, 40);
 				}
-				if (dXPoint < 80 && dYPoint > 80) {
+				if (dXPoint < 90 && dYPoint > 90) {
 					oTitleField.setBounds(10, 470, 80, 20);
 					oValueField.setBounds(10, 490, 80, 20);
 					oDescrField.setBounds(10, 510, 80, 40);
 				}
-				if (dXPoint > 80 && dYPoint > 80) {
+				if (dXPoint > 90 && dYPoint > 90) {
 					oTitleField.setBounds(430, 470, 80, 20);
 					oValueField.setBounds(430, 490, 80, 20);
 					oDescrField.setBounds(430, 510, 80, 40);
@@ -155,15 +171,15 @@ public class View extends JComponent implements Observer {
 			angle += pourcentage;
 			listArcs.add(arc);
 		}
-		
+
 		Arc2D.Double blanckArc = new Arc2D.Double(110, 110, 280, 280, 0, 360, Arc2D.PIE);
 		g2.setColor(Color.WHITE);
 		g2.fill(blanckArc);
-		
+
 		Arc2D.Double centralArc = new Arc2D.Double(175, 175, 150, 150, 0, 360, Arc2D.PIE);
 		g2.setColor(Color.BLACK);
 		g2.fill(centralArc);
-		
+
 		JTextArea oGlbText = new JTextArea();
 		String sCentralTxt = camembert.getMsTitle() + "\r\n" + String.valueOf(camembert.getMiValue());
 		oGlbText.setText(sCentralTxt);
@@ -172,11 +188,11 @@ public class View extends JComponent implements Observer {
 		oGlbText.setBounds(200, 200, 100, 100);
 		oGlbText.setBackground(Color.BLACK);
 		oGlbText.setBorder(null);
-		
+
 		this.add(oGlbText);
-		
+
 		listArcs.add(blanckArc);
-		
+
 		listArcs.add(centralArc);
 	}
 
@@ -194,20 +210,6 @@ public class View extends JComponent implements Observer {
 		return -1;
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		int iSlcArc = (int) arg;
-		for (int i = 0; i < camembert.getMloItems().size(); i++) {
-			Item oTmpItem = camembert.getMloItems().get(i);
-			if (i == iSlcArc) {
-				oTmpItem.setMbHighLights(true);
-			} else {
-				oTmpItem.setMbHighLights(false);
-			}
-		}
-		repaint();
-	}
-	
 	@Override
 	public void paintComponents(Graphics g) {
 		super.paintComponents(g);

@@ -9,7 +9,7 @@ import javax.swing.table.TableModel;
 /**
  * 
  */
-public class Camembert extends JTable {
+public class Camembert {
 
 	/**
 	 * 
@@ -112,6 +112,17 @@ public class Camembert extends JTable {
 		this.setMiValue(total);
 	}
 	
+	public void updateAddItem(int piSlcArc) {
+		for (int i = 0; i < this.getMloItems().size(); i++) {
+			Item oTmpItem = this.getMloItems().get(i);
+			if (i == piSlcArc) {
+				oTmpItem.setMbHighLights(true);
+			} else {
+				oTmpItem.setMbHighLights(false);
+			}
+		}
+	}
+	
 	/**
 	 * Update an item of camembert
 	 * @param poUpdItem
@@ -177,16 +188,13 @@ public class Camembert extends JTable {
 		return this.loItems;
 	}
 
-	@Override
-	public void setModel(TableModel dataModel) {
-		super.setModel(dataModel);
-	}
-
 	public void initSelection() {
-		for (int iIdx = 0; iIdx < this.loItems.size(); iIdx++) {
-			Item tmpItem = this.loItems.get(iIdx);
-			tmpItem.setMbHighLights(false);
-			this.loItems.set(iIdx, tmpItem);
+		if (this.loItems != null) {
+			for (int iIdx = 0; iIdx < this.loItems.size(); iIdx++) {
+				Item tmpItem = this.loItems.get(iIdx);
+				tmpItem.setMbHighLights(false);
+				this.loItems.set(iIdx, tmpItem);
+			}
 		}
 	}
 }
