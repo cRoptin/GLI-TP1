@@ -5,5 +5,5 @@ package fr.istic.gli.main;
  */
 public enum TypeAction {
 
-	EDIT_ITEM, ADD_ITEM;
+	EDIT_ITEM, ADD_ITEM, PREV_ITEM, NEXT_ITEM;
 }

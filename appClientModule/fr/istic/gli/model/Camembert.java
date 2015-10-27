@@ -3,18 +3,10 @@ package fr.istic.gli.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
-
 /**
  * 
  */
 public class Camembert {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/**
 	 * Default value for items title
 	 */
@@ -112,6 +104,10 @@ public class Camembert {
 		this.setMiValue(total);
 	}
 	
+	/**
+	 * Update item to select the good item
+	 * @param piSlcArc
+	 */
 	public void updateAddItem(int piSlcArc) {
 		for (int i = 0; i < this.getMloItems().size(); i++) {
 			Item oTmpItem = this.getMloItems().get(i);

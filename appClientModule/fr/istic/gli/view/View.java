@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JComponent;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import fr.istic.gli.controller.Controller;
 import fr.istic.gli.main.ConstantProperties;
@@ -180,7 +183,7 @@ public class View extends JComponent {
 		g2.setColor(Color.BLACK);
 		g2.fill(centralArc);
 
-		JTextArea oGlbText = new JTextArea();
+		JTextPane oGlbText = new JTextPane();
 		String sCentralTxt = camembert.getMsTitle() + "\r\n" + String.valueOf(camembert.getMiValue());
 		oGlbText.setText(sCentralTxt);
 		oGlbText.setForeground(Color.WHITE);
@@ -188,7 +191,14 @@ public class View extends JComponent {
 		oGlbText.setBounds(200, 200, 100, 100);
 		oGlbText.setBackground(Color.BLACK);
 		oGlbText.setBorder(null);
-
+		StyledDocument doc = oGlbText.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		
+		
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		
+		
 		this.add(oGlbText);
 
 		listArcs.add(blanckArc);
@@ -202,9 +212,11 @@ public class View extends JComponent {
 	 * @return the arc point clicked
 	 */
 	public int getArcPointClicked(Point2D poPoint) {
-		for (int i = 0; i < listArcs.size(); i++) {
-			if (listArcs.get(i).contains(poPoint.getX(), poPoint.getY())) {
-				return i;
+		if (poPoint != null) {
+			for (int i = 0; i < listArcs.size(); i++) {
+				if (listArcs.get(i).contains(poPoint.getX(), poPoint.getY())) {
+					return i;
+				}
 			}
 		}
 		return -1;

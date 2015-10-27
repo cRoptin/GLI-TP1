@@ -44,9 +44,15 @@ public class Fenetre extends JFrame {
 		btnAdd.addActionListener(new Controller(view, TypeAction.ADD_ITEM));
 		this.getContentPane().add(btnAdd, BorderLayout.SOUTH);
 		
-		JButton btnBefore = new JButton("-");
-		btnBefore.addActionListener(new Controller(view, TypeAction.ADD_ITEM));
-		this.getContentPane().add(btnBefore, BorderLayout.SOUTH);
+		JButton btnPrev = new JButton("-");
+		btnPrev.addActionListener(new Controller(view, TypeAction.PREV_ITEM));
+		btnPrev.setBounds(180, 480, 50, 50);
+		this.getContentPane().add(btnPrev);
+		
+		JButton btnNext = new JButton("+");
+		btnNext.addActionListener(new Controller(view, TypeAction.NEXT_ITEM));
+		btnNext.setBounds(280, 480, 50, 50);
+		this.getContentPane().add(btnNext);
 		
 		view.addMouseListener(new Controller(this.view, null));
 

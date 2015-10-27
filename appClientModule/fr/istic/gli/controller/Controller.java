@@ -34,9 +34,10 @@ public class Controller implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		Camembert oCamembert = moView.getCamembert();
 		Point2D oPoint = moView.getMousePosition();
 		int iSlcArc = moView.getArcPointClicked(oPoint);
-		moView.getCamembert().updateAddItem(iSlcArc);
+		oCamembert.updateAddItem(iSlcArc);
 		moView.repaint();
 	}
 
@@ -62,14 +63,32 @@ public class Controller implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Camembert tmpCamembert = this.moView.getCamembert();
-		int slcIdx = tmpCamembert.getSelectedIdx();
+		Camembert oCamembert = this.moView.getCamembert();
+		int slcIdx = oCamembert.getSelectedIdx();
 		if (TypeAction.ADD_ITEM.equals(this.moTypeAction)) {
-			tmpCamembert.addItem("", "", 1);
+			oCamembert.addItem("", "", 1);
+			moView.repaint();
+		} else if (TypeAction.PREV_ITEM.equals(this.moTypeAction)) {
+			int iSlcItem = oCamembert.getSelectedIdx();
+			if (iSlcItem <= 0) {
+				iSlcItem = oCamembert.getMloItems().size() - 1;
+			} else {
+				iSlcItem--;
+			}
+			oCamembert.updateAddItem(iSlcItem);
+			moView.repaint();
+		} else if (TypeAction.NEXT_ITEM.equals(this.moTypeAction)) {
+			int iSlcItem = oCamembert.getSelectedIdx();
+			if (iSlcItem == oCamembert.getMloItems().size() - 1) {
+				iSlcItem = 0;
+			} else {
+				iSlcItem++;
+			}
+			oCamembert.updateAddItem(iSlcItem);
 			moView.repaint();
 		} else {
 			if (TypeAction.EDIT_ITEM.equals(this.moTypeAction)) {
-				Item oEditItem = tmpCamembert.getMloItems().get(slcIdx);
+				Item oEditItem = oCamembert.getMloItems().get(slcIdx);
 				for (Component oComp : this.moView.getComponents()) {
 					if (oComp != null && oComp.getName() != null) {
 						JTextField oText = (JTextField) oComp;
@@ -84,7 +103,7 @@ public class Controller implements MouseListener, ActionListener {
 						}
 					}
 				}
-				tmpCamembert.updateItem(oEditItem);
+				oCamembert.updateItem(oEditItem);
 				moView.repaint();
 			}
 		}
